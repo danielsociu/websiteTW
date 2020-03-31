@@ -1,0 +1,116 @@
+body{
+    background-color: #FFFFFF;
+    margin: 0;
+    overflow-x:hidden;
+    /*took me a while to figure where the problem was from...*/
+    width:calc(100vw - (100vw - 100%));
+}
+.welcome{
+    display:inline-block;
+    width:100%;
+}
+.welcome h1,h2{
+    display:inline-block;
+    padding:0px 10px 0px 10px;
+}
+.welcome h2{
+    float:right;
+}
+.navbar{
+    position:fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #5F5F5F;
+}
+#mainNavBar{
+    position: sticky;
+}
+nav ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border-bottom: 1px solid #E7E7E7;
+    border-top: 0;
+}
+nav li{
+    float: left;
+    color: #666;
+    border-right: 1px solid #E7E7E7;
+}
+nav a{
+    display: inline-block;
+    color: #F1F1F1;
+    width: 60px;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+nav a:hover{
+    background-color: #000000;
+}
+
+.grid-container{
+    width:100%;
+    display: grid;
+    grid-template-columns: 15% auto 15%;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "menu header header"
+        "menu main sidebar"
+        "menu footer footer";
+    justify-items:stretch;
+}
+#container>div{
+    color: #000000;
+    border: 1px solid #EEEEEE;
+    padding: 10px;
+    background-color: #FFFFFF;
+}
+.myHeader{
+    grid-area: header;
+    border-top: 0px !important;
+}
+.myHeader:first-child{
+    text-align: center;
+}
+
+.main{
+    grid-area: main;
+}
+.sectionTitle{
+    text-align: center;
+    width:100%;
+}
+.menu{
+    position:sticky;
+    max-height:92.5vh;
+    top:48px;
+    left:0px;
+    border:0px !important;
+    grid-area: menu;
+    background-color: #F1F1F1 !important;
+}
+.sidebar{
+    grid-area: sidebar;
+}
+section{
+    font-size: 1.3em;
+}
+section>img{
+    display:block;
+    max-width: 100%;
+    height: auto;
+    margin-left:auto;
+    margin-right:auto;
+}
+section p img{
+    display:block;
+    padding-right: 0.5em;
+    float:left;
+    max-width:100%;
+}
+.footer{
+    grid-area: footer;
+}
