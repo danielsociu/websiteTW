@@ -5,6 +5,14 @@ body{
     /*took me a while to figure where the problem was from...*/
     width:calc(100vw - (100vw - 100%));
 }
+@media only screen and (max-width:768px){
+    body{
+        background-color: #FFFFFF;
+        margin: 0;
+        overflow-x:hidden;
+        width:100vw;
+    }
+}
 .welcome{
     display:inline-block;
     width:100%;
@@ -42,9 +50,8 @@ nav li{
 nav a{
     display: inline-block;
     color: #F1F1F1;
-    width: 60px;
-    text-align: center;
     padding: 14px 16px;
+    text-align: center;
     text-decoration: none;
 }
 nav a:hover{
@@ -54,7 +61,7 @@ nav a:hover{
 .grid-container{
     width:100%;
     display: grid;
-    grid-template-columns: 15% auto 15%;
+    grid-template-columns: 15% 70% 15%;
     grid-template-rows: auto;
     grid-template-areas:
         "menu header header"
@@ -65,7 +72,6 @@ nav a:hover{
 #container>div{
     color: #000000;
     border: 1px solid #EEEEEE;
-    padding: 10px;
     background-color: #FFFFFF;
 }
 .myHeader{
@@ -77,7 +83,7 @@ nav a:hover{
 }
 
 .main{
-    grid-area: main;
+    padding:10px;
 }
 .sectionTitle{
     text-align: center;
@@ -85,20 +91,58 @@ nav a:hover{
 }
 .menu{
     position:sticky;
-    max-height:92.5vh;
+    max-height:94.8vh;
     top:48px;
     left:0px;
     border:0px !important;
     grid-area: menu;
-    background-color: #F1F1F1 !important;
+    background-color: #F1F1F1 !impo;rtant;
+}
+.menu a{
+    display:inline-block;
+    width: 100%;
+    color: black;
+    text-align:center;
+    padding: 20px 0px 20px 0px;
+    text-decoration: none;
+}
+.menu a:hover{
+    background-color: #DDDDDD;
 }
 .sidebar{
     grid-area: sidebar;
+
+}
+.sidebar aside{
+    display:flex;
+    height:100%;
+    flex-direction: column;
+    align-content:space-around;
+    justify-content: space-around;
+}
+.sidebar aside>*{
+    padding-left:5px
+}
+.sidebar h3{
+    margin-top: 0;
+}
+.sidebar img{
+    max-width:100%;
+}
+q,em{
+    padding-left: 20px;
+    border-left: 2px solid #4CAF50;;
+}
+em{
+    font-size: 1.5em;
+    color: #4CAF50;
+    border-left-width: 4px;
+    font-weight: bold;
 }
 section{
     font-size: 1.3em;
 }
-section>img{
+.main>img{
     display:block;
     max-width: 100%;
     height: auto;
@@ -112,5 +156,95 @@ section p img{
     max-width:100%;
 }
 .footer{
+    padding-top: 10px;
     grid-area: footer;
+    text-align:center;
+}
+.footer img{
+    width:60px;
+    height:auto;
+    background-size:contain;
+}
+.footer a{
+    padding:0px 10px;
+    text-decoration: none;
+}
+@media only screen and (max-width:768px){
+    .footer img{
+        width:40px;
+        height:auto;
+        background-size:contain;
+    }
+
+    .footer a{
+        padding:0px 5px;
+        text-decoration: none;
+    }
+}
+.footer img:hover{
+    transform: scale(1.2);
+    transition:1s;
+}
+.boxText{
+    display:inline-block;
+    max-width:100%;
+    background-color: #EEEEEE;
+    margin: 2% 5% 2% 5%;
+    font-size: 0.9em;
+    font-weight: bold;
+    padding: 0px 40px 6px 40px;
+    border-top:5px solid #5F5F5F;
+    border-radius: 10px 10px 0px 0px;
+}
+.boxText h4{
+    color: #4CAF50;
+    font-size: 1.1em;
+}
+.yearListing h4{
+    font-weight: bold;
+    font-size:1em;
+    margin-bottom:0px;
+}
+.yearListing ul{
+    margin-top:0px;
+    margin-left:2em;
+}
+/*Youtube tab extra stuffs*/
+.simpleContainer{
+    padding:50px 20px;
+}
+.simpleContainer h1{
+    text-align:center;
+}
+.vidContainer{
+    display:flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-content: space-around;
+}
+.vidContainer iframe{
+    padding:15px;
+    max-width: 100%;
+}
+.dropdown {
+    position: relative;
+    width:60px;
+    height:auto;
+    display: inline-block;
+}
+
+#dropdown-content {
+position:fixed;
+top:500px;
+display: none;
+z-index: 1;
+}
+
+#dropdown-content a {
+    border-left: 1px solid #E7E7E7;
+}
+
+
+.dropdown:hover{
+    background-color: teal;
 }
