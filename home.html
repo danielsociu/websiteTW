@@ -3,6 +3,7 @@
 <html lang="en">
 
 <head>
+  <script type="text/javascript" src="homeScript.js"></script>
   <meta charset="UTF-8">
   <meta name="description" content="Just a plain website about AI">
   <meta name="author" content="Alhiris">
@@ -20,14 +21,19 @@
     <h2>The future of technology</h2>
   </div>
   <nav class="navbar" id="mainNavBar">
-    <ul>
-      <li><a href="home.html">Home</a></li>
-      <li><a href="youtube.html">Youtube videos</a></li>
-      
- <!--     <li><a href="page1.html">Page1</a></li> -->
- <!--     <li><a href="page1.html">Page1</a></li> -->
-    </ul>
+    <div id="navLiElem">
+      <ul>
+        <li id="homePage"><a href="home.html">Home</a></li>
+        <li id="youtubePage"><a href="youtube.html">Youtube videos</a></li>
+        <li id="page1Page"><a href="page1.html">Page1</a></li>
+        <li id="dropDownMenuPage"><a href="#">More</a></li>
+      </ul>
+    </div>
   </nav>
+  <div id="dropdownMenu" class="navbarDropdown">
+    <ul id="navLiDropdownElem">
+    </ul>
+  </div>
 
   <div class="grid-container" id="container">
     <div class="myHeader">
@@ -319,13 +325,13 @@
       </section>
     </div>
 
-    <div class="menu">
-      <a href="#container">Home</a>
-      <a href="#what">What is AI?</a>
-      <a href="#how">How it works</a>
-      <a href="#narrow">Narrow AI</a>
-      <a href="#machineLearning">Machine Learning</a>
-      <a href="#history">History</a>
+    <div id="sideMainMenu" class="menu">
+      <a id="containerMenu" >Home</a>
+      <a id="whatMenu" >What is AI?</a>
+      <a id="howMenu">How it works</a>
+      <a id="narrowMenu">Narrow AI</a>
+      <a id="machineLearningMenu">Machine Learning</a>
+      <a id="historyMenu">History</a>
     </div>
 
     <div class="sidebar">

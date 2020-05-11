@@ -34,26 +34,41 @@ body{
 #mainNavBar{
     position: sticky;
 }
-nav ul{
+.navbarDropdown{
+    position:fixed;
+    display:block;
+    width:auto;
+    /* display:none; */
+}
+nav ul, #navLiDropdownElem{
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
+    background-color: #5F5F5F;
     border-bottom: 1px solid #E7E7E7;
     border-top: 0;
 }
-nav li{
+nav li, #navLiDropdownElem li{
     float: left;
     color: #666;
     border-right: 1px solid #E7E7E7;
 }
-nav a{
+nav a,#navLiDropdownElem a{
     display: inline-block;
     color: #F1F1F1;
     padding: 14px 16px;
     text-align: center;
     text-decoration: none;
 }
+#navLiDropdownElem{
+    top:0px;
+    position:sticky;
+    display:flex;
+    flex-direction: column;
+    z-index: 20 !important;
+}
+
 nav a:hover{
     background-color: #000000;
 }
@@ -76,6 +91,7 @@ nav a:hover{
 }
 .myHeader{
     grid-area: header;
+    overflow:hidden;
     border-top: 0px !important;
 }
 .myHeader:first-child{
@@ -93,10 +109,11 @@ nav a:hover{
     position:sticky;
     max-height:94.8vh;
     top:48px;
+    overflow:hidden;
     left:0px;
     border:0px !important;
     grid-area: menu;
-    background-color: #F1F1F1 !impo;rtant;
+    background-color: #F1F1F1 !important;
 }
 .menu a{
     display:inline-block;
@@ -109,6 +126,9 @@ nav a:hover{
 .menu a:hover{
     background-color: #DDDDDD;
 }
+.sideMenuActive{
+    background-color: #DDDDDD;
+}
 .sidebar{
     grid-area: sidebar;
 
@@ -116,6 +136,7 @@ nav a:hover{
 .sidebar aside{
     display:flex;
     height:100%;
+    overflow: hidden;
     flex-direction: column;
     align-content:space-around;
     justify-content: space-around;
@@ -124,6 +145,7 @@ nav a:hover{
     padding-left:5px
 }
 .sidebar h3{
+    word-wrap: break-word;
     margin-top: 0;
 }
 .sidebar img{
