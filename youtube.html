@@ -9,12 +9,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>AI the future</title>
-  <!-- MENU STUFFS -->
-  <script type="text/javascript" src="menuScript.js"></script>
-  <link href="menuCSS.css" type="text/css" rel="stylesheet">
-  <!-- MENU STUFFS -->
   <!--Including the css file-->
-  <link href="styling.css" type="text/css" rel="stylesheet">
+  <link href="youtubeStyling.css" type="text/css" rel="stylesheet">
 </head>
 
 <body>
@@ -33,7 +29,16 @@
     <ul id="navLiDropdownElem">
     </ul>
   </div>
-  <!-- **************THE NAVIGATION***************** -->
+  <!-- MENU STUFFS -->
+  <script type="text/javascript" src="menuScript.js"></script>
+  <script language="javascript">
+    document.getElementById("dropdownMenuPage").firstChild.addEventListener("click",myNavigatorFunc);
+    window.onload = function() {
+      window.dispatchEvent(new Event('resize'));
+    }
+  </script>
+  <link href="menuCSS.css" type="text/css" rel="stylesheet">
+  <!-- MENU STUFFS -->
     
   <div class="simpleContainer">
       <h1>Some introduction videous to AI</h1>

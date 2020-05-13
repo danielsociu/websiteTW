@@ -1,3 +1,18 @@
+body{
+    background-color: #FFFFFF;
+    margin: 0;
+    overflow-x:hidden;
+    /*took me a while to figure where the problem was from...*/
+    width:calc(100vw - (100vw - 100%));
+}
+@media only screen and (max-width:768px){
+    body{
+        background-color: #FFFFFF;
+        margin: 0;
+        overflow-x:hidden;
+        width:100vw;
+    }
+}
 .navbar{
     position:fixed;
     top: 0;
@@ -21,6 +36,9 @@ nav li, #navLiDropdownElem li{
     float: left;
     color: #666;
     border-right: 1px solid #E7E7E7;
+}
+nav li:last-child{
+    display:none;
 }
 nav a,#navLiDropdownElem a{
     display: inline-block;

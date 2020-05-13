@@ -1,5 +1,3 @@
-window.onload=myMain;
-
 /****************Making a dropdown button&deciding based on how much space*/
 window.addEventListener('resize',function(){
     var screenWidth = document.body.clientWidth;
@@ -15,13 +13,15 @@ window.addEventListener('resize',function(){
     }
     //document.getElementById("what").innerHTML+=myLength;
     var sider = document.getElementById("sideMainMenu");
-    if(sider=='null'){
-        if(screenWidth/3>=200)
-            optimal=screenWidth/3;
-        else
-            optimal=screenWidth/2;
+    if(sider==null){
+        optimal = ((screenWidth*screenWidth+200*screenWidth)/5000)+100;
+        optimal = Math.min(optimal,screenWidth);
+        // if(screenWidth/3>=200)
+        //     optimal=screenWidth/3;
+
     }else
         optimal = sider.offsetWidth + navElem[navElem.length - 1].offsetWidth;
+
     for( var i=navElem.length-2; i>0; i--){
         if(myLength-navElem[i].offsetWidth < optimal)
             break;
@@ -36,7 +36,7 @@ window.addEventListener('resize',function(){
         nav.insertBefore(navDropElem[i],nav.lastElementChild);
     }
     //navDrop.style.left = navElem[navElem.length-1].offsetLeft;
-    var posLeft = navElem[navElem.length-1].offsetLeft;// - navElem[navElem.length-1].offsetWidth;
+    var posLeft = myLength-navElem[navElem.length-1].offsetWidth; 
     var mainNavBarHeight = document.getElementById("mainNavBar").offsetHeight;
     var moreButton = document.getElementById("dropdownMenuPage");
 
@@ -48,20 +48,16 @@ window.addEventListener('resize',function(){
     else
         moreButton.style.display = "inline-block";
 
-
-
 });
 
-function myMain(){
-    window.dispatchEvent(new Event('resize'));
-
-    var navMore = document.getElementById("dropdownMenuPage").firstChild;
-    navMore.addEventListener('click',function(){
+function myNavigatorFunc(){
+    //var navMore = document.getElementById("dropdownMenuPage").firstChild;
+    //navMore.addEventListener('click',function(){
         var navMoreContent= document.getElementById("dropdownMenu");
         var theDisplay = getComputedStyle(navMoreContent).display;
         if (theDisplay=="none")
             navMoreContent.style.display="block";
         else
             navMoreContent.style.display="none";
-    });
+    //});
 }

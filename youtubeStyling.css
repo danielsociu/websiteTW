@@ -1,0 +1,17 @@
+/*Youtube tab extra stuffs*/
+.simpleContainer{
+    padding:50px 20px;
+}
+.simpleContainer h1{
+    text-align:center;
+}
+.vidContainer{
+    display:flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-content: space-around;
+}
+.vidContainer iframe{
+    padding:15px;
+    max-width: 100%;
+}

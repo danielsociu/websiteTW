@@ -19,7 +19,7 @@ window.addEventListener('scroll',function(){
 });
 
 function myMain(){
-    // window.dispatchEvent(new Event('resize'));
+    window.dispatchEvent(new Event('resize'));
 
     /****************Making scrolling button animation */
     var aTags = document.getElementById("sideMainMenu").children;
