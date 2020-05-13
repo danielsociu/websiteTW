@@ -17,37 +17,9 @@ window.addEventListener('scroll',function(){
         }
     }
 });
-/****************Making a dropdown button&deciding based on how much space*/
-window.addEventListener('resize',function(){
-    var screenWidth = document.body.clientWidth;
-    var myLength=0,optimal=0;
-    var navElem = document.getElementById("navLiElem").getElementsByTagName("li");
-    var navDrop = document.getElementById("navLiDropdownElem");
-    // document.getElementById("what").innerHTML=screenWidth;
-    for (var i=0; i<navElem.length; i++)
-    {
-        myLength+=navElem[i].offsetWidth;
-    }
-    //document.getElementById("what").innerHTML+=myLength;
-    if(screenWidth/3>=200)
-        optimal=screenWidth/3;
-    else 
-        optimal=screenWidth/2;
-    for( var i=navElem.length-2; i>0; i--){
-        if(myLength-navElem[i].offsetWidth < optimal)
-            break;
-        myLength -= navElem[i].offsetWidth;
-        navDrop.insertBefore(navElem[i],navDrop.childNodes[0]);
-    }
-
-    //navDrop.style.left = navElem[navElem.length-1].offsetLeft;
-    var posLeft = navElem[navElem.length-1].offsetLeft;// - navElem[navElem.length-1].offsetWidth;
-
-    document.getElementById("dropdownMenu").style.left = posLeft.toString() + 'px';
-    //navDrop.style.left = 500;
-})
 
 function myMain(){
+    // window.dispatchEvent(new Event('resize'));
 
     /****************Making scrolling button animation */
     var aTags = document.getElementById("sideMainMenu").children;
@@ -64,7 +36,6 @@ function myMain(){
         //     });
         // })
     }
-    //window.dispatchEvent(new Event('resize'));
 
 }
 function myScrollTransistion(elem,elem2){

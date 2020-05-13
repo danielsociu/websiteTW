@@ -9,6 +9,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>AI the future</title>
+  <!-- MENU STUFFS -->
+  <script type="text/javascript" src="menuScript.js"></script>
+  <link href="menuCSS.css" type="text/css" rel="stylesheet">
+  <!-- MENU STUFFS -->
   <!--Including the css file-->
   <link href="styling.css" type="text/css" rel="stylesheet">
 </head>
@@ -16,21 +20,22 @@
 
 <body>
     
-  <nav>
+  <!-- **************THE NAVIGATION***************** -->
+  <nav class="navbar" id="mainNavBar">
+    <div id="navLiElem">
       <ul>
-        <div class="navbar">
-          <li><a href="home.html">Home</a></li>
-          <li><a href="youtube.html">Youtube videos</a></li>
-          <div class="dropdown">
-            <li><a href="" class="dropbtn">More</a></li>
-          </div>
-        </div>
-        <div id="dropdown-content">
-          <li><a href="page1.html">Page1</a></li>
-          <li><a href="page1.html">Page1</a></li>
-        </div>
+        <li id="homePage"><a href="home.html">Home</a></li>
+        <li id="youtubePage"><a href="youtube.html">Youtube videos</a></li>
+        <li id="page1Page"><a href="page1.html">Page1</a></li>
+        <li id="dropdownMenuPage"><a type="button">More</a></li>
       </ul>
+    </div>
   </nav>
+  <div id="dropdownMenu" class="navbarDropdown">
+    <ul id="navLiDropdownElem">
+    </ul>
+  </div>
+  <!-- **************THE NAVIGATION***************** -->
   <h1>This is my page1</h1>
   
 </body>

@@ -24,54 +24,6 @@ body{
 .welcome h2{
     float:right;
 }
-.navbar{
-    position:fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #5F5F5F;
-}
-#mainNavBar{
-    position: sticky;
-}
-.navbarDropdown{
-    position:fixed;
-    display:block;
-    width:auto;
-    /* display:none; */
-}
-nav ul, #navLiDropdownElem{
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #5F5F5F;
-    border-bottom: 1px solid #E7E7E7;
-    border-top: 0;
-}
-nav li, #navLiDropdownElem li{
-    float: left;
-    color: #666;
-    border-right: 1px solid #E7E7E7;
-}
-nav a,#navLiDropdownElem a{
-    display: inline-block;
-    color: #F1F1F1;
-    padding: 14px 16px;
-    text-align: center;
-    text-decoration: none;
-}
-#navLiDropdownElem{
-    top:0px;
-    position:sticky;
-    display:flex;
-    flex-direction: column;
-    z-index: 20 !important;
-}
-
-nav a:hover{
-    background-color: #000000;
-}
 
 .grid-container{
     width:100%;
