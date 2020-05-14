@@ -14,3 +14,10 @@ h1{
 #sendData{
     margin:10px;
 }
+fieldset{
+    font-size: 1em;
+    margin-bottom:5px;
+}
+legend{
+    font-size: 1.1em;
+}
