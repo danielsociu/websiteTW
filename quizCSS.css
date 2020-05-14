@@ -1,0 +1,16 @@
+.simpleContainer{
+    margin:30px 7vw;
+    background-color: #F2F2F2;
+    overflow:hidden;
+}
+h1{
+    text-align: center;
+    font-size: 2em;;
+    padding:20px;
+}
+.quizHolder{
+    padding:10px;
+}
+#sendData{
+    margin:10px;
+}

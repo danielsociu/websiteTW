@@ -3,6 +3,23 @@ window.onload=myMain;
 function myMain(){
     window.dispatchEvent(new Event('resize'));
     myNavigatorFunc();
+    var quizButton = document.getElementById("sendData");
+    quizButton.onclick=getTotalScore;
+}
+
+function getTotalScore(){
+    var answers = document.getElementById("quiz").getElementsByTagName("input");
+    var correctAns=Number(0);
+    var lastAnswer=Number(localStorage.getItem("lastAnswer"));
+    for (var i=0; i<answers.length; i++){
+        if(answers[i].checked)
+            correctAns += Number(answers[i].value);
+    }
+    localStorage.setItem("lastAnswer",correctAns+1);
+    if(lastAnswer)
+        alert("Last time u got "+(lastAnswer-1).toString()+" correct\nNow " +correctAns.toString()+ " correct answers!");
+    else
+        alert("You got "+correctAns.toString() + " correct answers!");
 }
 
 /****************Making a dropdown button&deciding based on how much space*/
