@@ -1,3 +1,9 @@
+window.onload=function(){
+    window.dispatchEvent(new Event('resize'));
+    myNavigatorFunc();
+    while(document.getElementById("mainNavBar").offsetHeight>=2*document.getElementById("homePage").offsetHeight)
+        window.dispatchEvent(new Event('resize'));
+}
 /****************Making a dropdown button&deciding based on how much space*/
 window.addEventListener('resize',function(){
     var screenWidth = document.body.clientWidth;
@@ -51,13 +57,13 @@ window.addEventListener('resize',function(){
 });
 
 function myNavigatorFunc(){
-    //var navMore = document.getElementById("dropdownMenuPage").firstChild;
-    //navMore.addEventListener('click',function(){
+    var navMore = document.getElementById("dropdownMenuPage").firstChild;
+    navMore.addEventListener('click',function(){
         var navMoreContent= document.getElementById("dropdownMenu");
         var theDisplay = getComputedStyle(navMoreContent).display;
         if (theDisplay=="none")
             navMoreContent.style.display="block";
         else
             navMoreContent.style.display="none";
-    //});
+    });
 }
