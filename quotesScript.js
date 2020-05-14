@@ -3,8 +3,52 @@ window.onload=myMain;
 function myMain(){
     window.dispatchEvent(new Event('resize'));
     myNavigatorFunc();
+    document.getElementById("quote").onclick=getQuote;
 }
+function getRandomColor(){
+    var letters='0123456789ABCDE';
+    var color='#';
+    for(var i=0; i<6 ; i++){
+      color+=letters[Math.floor(Math.random()*16)];
+    }
+    return color;
+};
+  function invertColor(hexTripletColor) {
+      var color = hexTripletColor;
+      color = color.substring(1);       
+      color = parseInt(color, 16);     
+      color = 0xFFFFFF ^ color;         
+      color = color.toString(16);       
+    //   color = ("000000" + color).slice(-6);
+      color = "#" + color;             
+      return color;
+};
+function getQuote(){
+    var colors = getRandomColor();
+    var opColor = invertColor(colors);
+    var data = null;
 
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === this.DONE) {
+            var answer = JSON.parse(this.responseText);
+            document.getElementById("easy").textContent=answer.content;
+        }
+    });
+    xhr.open("GET", "https://quotes15.p.rapidapi.com/quotes/random/?language_code=en");
+    xhr.setRequestHeader("x-rapidapi-host", "quotes15.p.rapidapi.com");
+    xhr.setRequestHeader("x-rapidapi-key", "ab80e90622msh9e027963662fa12p1f3691jsn4ebf13610c1d");
+
+    xhr.send(data);
+    
+    document.body.style.backgroundColor = colors;
+    document.getElementById("easy").backgroundColor = colors;
+    document.getElementById("myTitle").style.color = opColor;
+    document.getElementById("quote").style.color = colors;
+    document.getElementById("quote").style.backgroundColor = opColor;
+};
 
 /****************Making a dropdown button&deciding based on how much space*/
 window.addEventListener('resize',function(){
