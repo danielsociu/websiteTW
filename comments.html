@@ -10,7 +10,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>AI the future</title>
   <!-- MENU STUFFS -->
-  <script type="text/javascript" src="contactScript.js"></script>
+  <script type="text/javascript" src="commentsScript.js"></script>
   <!-- <script language="javascript">
     document.getElementById("dropdownMenuPage").firstChild.addEventListener("click",myNavigatorFunc);
     window.onload = function() {
@@ -19,7 +19,7 @@
   </script> -->
   <link href="menuCSS.css" type="text/css" rel="stylesheet">
   <!--Including the css file-->
-  <link href="contactCSS.css" type="text/css" rel="stylesheet">
+  <link href="commentsCSS.css" type="text/css" rel="stylesheet">
 </head>
 
 
@@ -45,33 +45,49 @@
   </div>
   <!-- **************THE NAVIGATION***************** -->
   <div class="simpleContainer">
-    <h1>Contact me</h1>
-
+    <h1>Comments</h1>
     <div>
-      <div id="contactDetails">
+      <div id="commentsDetails">
         <p>
-          &emsp;In case you want to contant me, you can send your question down below! 
+          &emsp;Post a comment!
         </p>
-
-      </div>
-      <form id="contactInfo" action="mailto:www.danielsociu@gmail.com" method="post" enctype="text/plain">
-        <label>
-          <input type="text" placeholder="Nume">
-        </label>
-        <label>
-          <input type="text" placeholder="Prenume">
-        </label>
-        <label>
+    </div>
+      <form id="commentForm" action="http://localhost:3000/comments" method="post">
+        <!-- <label>
+        </label> -->
+          <input type="text" name="nume" placeholder="Nume">
+        <!-- <label>
+        </label> -->
+          <input type="text" name="prenume" placeholder="Prenume">
+        <!-- <label>
           <input type="email" placeholder="Email">
-        </label>
-        <label>
-          <textarea placeholder="Message"></textarea>
-        </label>
-        <button type="submit" id="submitButton">Send</button>
+        </label> -->
+        <!-- <label>
+        </label> -->
+          <textarea placeholder="Message" name="message"></textarea>
+        <button type="submit" id="postButton">Post</button>
       </form>
     </div>
-  
   </div>
+  <div class="commentContainer" id="commentTemplate" style="display:none">
+      <div class="profileImage">
+        <img class="profileImageStyle" src="/images/profileDefault" alt="profileImg">
+      </div>
+      <div class="profileName">
+          <p>Username comment:</p>
+      </div>
+      <div class="commentContent">
+          <p>This is the text wrote by the user</p>
+      </div>
+      <div class="commentOptions">
+          <button type="button">Edit</button>
+          <button type="button">Delete</button>
+      </div>
+  </div>
+  <div id="commentsContainer">
+
+  </div>
+
 </body>
 
 </html>

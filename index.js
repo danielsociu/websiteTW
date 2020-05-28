@@ -12,4 +12,10 @@ app.use(morgan("tiny")); //looogssss
 app.use(bodyParser.json()); //parsing body of post/put(anything that has a body)
 app.use(cors()); //enabling cors
 
+app.post('/comments',function(req,res){
+    console.log(req);
+});
+app.listen("3000", () =>
+  console.log("Server started at: http://localhost:3000")
+);
 

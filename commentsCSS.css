@@ -1,0 +1,97 @@
+
+.simpleContainer{
+    margin:30px 3vw;
+    background-color: #F2F2F2;
+    overflow:hidden;
+}
+#commentForm{
+    width:auto;
+    margin:10px 20px 10px 10px;
+}
+#commentsDetails{
+    width:100%;
+    margin-top:-10px;
+}
+#commentsDetails p{
+    font-size: 1.5em;
+    /* margin-block-end: 0.5em; */
+    /* margin-block-start: 0; */
+    word-wrap: break-word;
+    margin-left: 15px;
+}
+h1{
+    text-align: center;
+    font-size: 2em;;
+    padding:20px;
+}
+input,textarea{
+    border-style:none;
+    border-width:0px;
+    border:none;
+    outline:none;
+    font-size: 1.1em;
+    width:100%;
+    margin-bottom:5px;
+    padding:12px 5px 10px 5px;
+    /* height:200px; */
+    overflow:hidden;
+    resize:none;
+}
+textarea{
+    height: 20vh;
+    font-size: 1.3em;
+}
+#postButton{
+    float:left;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+.commentContainer{
+    margin:10px 3vw;
+    background-color: #F2F2F2;
+    display: grid;
+    grid-template-columns: 15% 80%;
+    grid-template-rows:1.5em auto 2em;
+    grid-template-areas:
+        "profileImage profileName"
+        "profileImage commentContent"
+        "profileImage commentOptions";
+    justify-items:stretch;   
+    overflow:hidden;
+}
+p{
+    padding:0px;
+    margin:0px;
+}
+.profileImage{
+    grid-area:profileImage;
+    align-self:center;
+}
+.profileImageStyle{
+    width: 10vw;
+    padding: 10px;
+}
+.profileName{
+    grid-area:profileName;
+}
+.profileName > p{
+    padding-top:2px;
+    font-size: 1em;
+    font-weight: bold;
+}
+.commentContent{
+    grid-area:commentContent;
+    background-color: white;
+    align-items: top;
+}
+.commentContent > p{
+    font-size: 1em;
+    padding-left:2px;
+    padding-top:3px;
+}
+.commentOptions{
+    grid-area:commentOptions;
+    justify-self: end;
+    align-self:end;
+    padding-bottom:4px;
+}
