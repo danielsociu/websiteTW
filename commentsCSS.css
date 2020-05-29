@@ -65,7 +65,7 @@ p{
 }
 .profileImage{
     grid-area:profileImage;
-    align-self:center;
+    align-self:top;
 }
 .profileImageStyle{
     width: 10vw;
@@ -82,12 +82,16 @@ p{
 .commentContent{
     grid-area:commentContent;
     background-color: white;
-    align-items: top;
+    justify-items: stretch;
+    align-items: stretch;
 }
 .commentContent > p{
     font-size: 1em;
     padding-left:2px;
     padding-top:3px;
+    word-break: break-all;
+    height:100%;
+    
 }
 .commentOptions{
     grid-area:commentOptions;

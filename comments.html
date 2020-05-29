@@ -52,7 +52,7 @@
           &emsp;Post a comment!
         </p>
     </div>
-      <form id="commentForm" action="http://localhost:3000/comments" method="post">
+      <form id="commentForm"> <!--action="http://localhost:3000/comments" method="post">-->
         <!-- <label>
         </label> -->
           <input type="text" name="nume" placeholder="Nume">
@@ -65,7 +65,7 @@
         <!-- <label>
         </label> -->
           <textarea placeholder="Message" name="message"></textarea>
-        <button type="submit" id="postButton">Post</button>
+        <button type="button" id="postButton">Post</button>
       </form>
     </div>
   </div>
@@ -80,14 +80,13 @@
           <p>This is the text wrote by the user</p>
       </div>
       <div class="commentOptions">
-          <button type="button">Edit</button>
-          <button type="button">Delete</button>
+          <button type="button" id="editButton">Edit</button>
+          <button type="button" id="deleteButton">Delete</button>
       </div>
   </div>
   <div id="commentsContainer">
-
   </div>
-
-</body>
-
-</html>
+  
+  </body>
+  
+  </html>
