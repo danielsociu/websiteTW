@@ -6,6 +6,7 @@ function myMain(){
     myNavigatorFunc();
     document.getElementById("sendButton").addEventListener("click",updateAge);
 }
+/// II -> task ul 1
 function daysInMonth (month, year) { 
     return new Date(year, month, 0).getDate(); 
 } 
@@ -81,18 +82,20 @@ function putData(birthDate){
         days = daysInMonth(birthDate.getMonth()+1,dateNow.getFullYear())+days;
         months--;
     }
-    data =data + years + " years old ";
+    data =data + years + " years ";
     data =data + months + " months ";
     data =data + days + " days ";
     data =data + hours + " hours ";
     data =data + minutes + " minutes ";
     data =data + seconds  + " seconds ";
+    data =data + "old!"
     loc.innerHTML=data;
     updateRegular(birthDate);
 }
 function updateRegular(birthDate){
     mytime=setTimeout(function(){putData(birthDate);},1000);
 }
+/// End of II -> task ul 1
 
 /****************Making a dropdown button&deciding based on how much space*/
 window.addEventListener('resize',function(){
