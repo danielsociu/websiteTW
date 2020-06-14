@@ -23,7 +23,7 @@ function postComment() {
         params += dataList[i].getAttribute("name") + '=' + dataList[i].value;
         // params.append(dataList[i].getAttribute("name"),dataList[i].value);
     }
-
+    params+="&likes=0&dislikes=0"
     xhr.open("POST", url, true);
 
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -72,14 +72,31 @@ function updateComments(data) {
             var copy = template.cloneNode(true);
             copy.setAttribute("id", key);
             copy.removeAttribute("style");
-            copy.getElementsByClassName("profileName")[0].innerHTML = "<p>"+ data.comments[key].nume + ' ' + data.comments[key].prenume+' wrote:<\p>';
-            copy.getElementsByClassName("commentContent")[0].innerHTML = "<p>" + data.comments[key].message + "<\p>";
+            copy.getElementsByClassName("profileName")[0].children[0].innerHTML = data.comments[key].nume + ' ' + data.comments[key].prenume+' wrote:';
+            copy.getElementsByClassName("commentContent")[0].innerHTML = "<p>" + data.comments[key].message + "</p>";
             copy.getElementsByClassName("commentOptions")[0].children[0].setAttribute("id","edit"+key);
             copy.getElementsByClassName("commentOptions")[0].children[0].addEventListener("click",function(ev){return editComment(ev)});
             copy.getElementsByClassName("commentOptions")[0].children[1].setAttribute("id","delete"+key);
             copy.getElementsByClassName("commentOptions")[0].children[1].addEventListener("click",function(ev){return deleteComment(ev)});
+            copy.getElementsByClassName("showOptions")[0].children[0].setAttribute("id","hide"+key);
+            copy.getElementsByClassName("showOptions")[0].children[0].addEventListener("click",function(ev){return hideComment(ev)});
+            copy.getElementsByClassName("showOptions")[0].children[1].setAttribute("id","show"+key);
+            copy.getElementsByClassName("showOptions")[0].children[1].addEventListener("click",function(ev){return showComment(ev)});
+            copy.getElementsByClassName("likeOptions")[0].children[0].setAttribute("id","likes"+key);
+            copy.getElementsByClassName("likeOptions")[0].children[1].setAttribute("id","like"+key);
+            copy.getElementsByClassName("likeOptions")[0].children[1].addEventListener("click",function(ev){return likeComment(ev)});
+            copy.getElementsByClassName("likeOptions")[0].children[2].setAttribute("id","dislikes"+key);
+            copy.getElementsByClassName("likeOptions")[0].children[3].setAttribute("id","dislike"+key);
+            copy.getElementsByClassName("likeOptions")[0].children[3].addEventListener("click",function(ev){return dislikeComment(ev)});
             document.getElementById("commentsContainer").prepend(copy);
         }
+        var likes = document.getElementById("likes"+key);
+        var dislikes = document.getElementById("dislikes"+key);
+        dislikes.innerHTML = data.comments[key].dislikes;
+        likes.innerHTML = data.comments[key].likes;
+        if((parseInt(dislikes.innerHTML) - parseInt(likes.innerHTML))>5)
+            document.getElementById(key).remove();
+    
     });
 }
 function deleteComment(ev){
@@ -87,16 +104,17 @@ function deleteComment(ev){
         return null;
     var url = "http://localhost:3000/comments";
     var xhr = new XMLHttpRequest();
-    var params = "who="
+    var params = "?who="
 
     myId = ev.target.getAttribute("id");
     myId = myId.substr(6,myId.length);
     params+=myId;
+    url+=params
 
     xhr.open("DELETE", url, true);
 
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send(params);
+    xhr.send(null);
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             localStorage.setItem("commentsData",this.responseText);
@@ -129,6 +147,73 @@ function editComment(ev){
 
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send(params);
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            localStorage.setItem("commentsData",this.responseText);
+            var answer = JSON.parse(this.responseText);
+            updateComments(answer);
+        }
+    }
+}
+function hideComment(ev){
+    var myId = ev.target.getAttribute("id").substr(4);
+    var myElem = document.getElementById(myId).children;
+    for(var i=0 ; i<myElem.length; i++){
+        if(!myElem[i].classList.contains("profileName") && !myElem[i].classList.contains("showOptions")){
+            myElem[i].style.display="none";
+        }
+
+    }
+}
+function showComment(ev){
+    var myId = ev.target.getAttribute("id").substr(4);
+    var myElem = document.getElementById(myId).children;
+    for(var i=0 ; i<myElem.length; i++){
+        if(!myElem[i].classList.contains("profileName") && !myElem[i].classList.contains("showOptions")){
+            myElem[i].style.display="block";
+        }
+    }
+}
+function likeComment(ev){
+    var myId = ev.target.getAttribute("id").substr(4);
+    var likeNumber = document.getElementById("likes"+myId);
+    likeNumber.innerHTML = parseInt(likeNumber.innerHTML) + 1;
+
+    var url = "http://localhost:3000/comments/like";
+    var xhr = new XMLHttpRequest();
+    var params = "?who="
+
+    params+=myId;
+    url+=params;
+
+    xhr.open("PUT", url, false);
+
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send(null);
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            localStorage.setItem("commentsData",this.responseText);
+            var answer = JSON.parse(this.responseText);
+            updateComments(answer);
+        }
+    }
+}
+function dislikeComment(ev){
+    var myId = ev.target.getAttribute("id").substr(7);
+    var likeNumber = document.getElementById("dislikes"+myId);
+    likeNumber.innerHTML = parseInt(likeNumber.innerHTML) + 1;
+
+    var url = "http://localhost:3000/comments/dislike";
+    var xhr = new XMLHttpRequest();
+    var params = "?who="
+
+    params+=myId;
+    url+=params
+
+    xhr.open("PUT", url, true);
+
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send(null);
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             localStorage.setItem("commentsData",this.responseText);

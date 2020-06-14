@@ -59,7 +59,7 @@ app.route('/comments').post(function (req, res) {
   obj = JSON.stringify(obj, undefined, 2);
   res.send(obj);
 }).delete(function (req, res) {
-  var id = req.body.who;
+  var id = req.query.who;
   var obj = { "comments": {} };
   if (fs.existsSync("data.json")) {
     obj = fs.readFileSync("data.json");
@@ -84,6 +84,35 @@ app.route('/comments').post(function (req, res) {
   }
   res.send(obj);
 });
+
+app.put("/comments/like", function(req,res){
+  var id = req.query.who;
+  var obj = { "comments": {} };
+  if (fs.existsSync("data.json")) {
+    obj = fs.readFileSync("data.json");
+    obj = JSON.parse(obj);
+    if (id in obj.comments)
+      obj.comments[id].likes = parseInt(obj.comments[id].likes) + 1;
+    let result = JSON.stringify(obj, undefined, 2);
+    fs.writeFileSync("data.json", result);
+  }
+  res.send(obj);
+});
+
+app.put("/comments/dislike", function(req,res){
+  var id = req.query.who;
+  var obj = { "comments": {} };
+  if (fs.existsSync("data.json")) {
+    obj = fs.readFileSync("data.json");
+    obj = JSON.parse(obj);
+    if (id in obj.comments)
+      obj.comments[id].dislikes = parseInt(obj.comments[id].dislikes) + 1;
+    let result = JSON.stringify(obj, undefined, 2);
+    fs.writeFileSync("data.json", result);
+  }
+  res.send(obj);
+});
+
 app.listen("3000", () =>
   console.log("Server started at: http://localhost:3000")
 );
