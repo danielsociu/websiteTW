@@ -110,7 +110,7 @@ function putData(birthDate){
     days = dateNow.getDate() - birthDate.getDate();
     hours = dateNow.getHours() - birthDate.getHours();
     minutes = dateNow.getMinutes() -birthDate.getMinutes();
-    start = dateNow.getSeconds() - birthDate.getSeconds();
+    starter = dateNow.getSeconds() - birthDate.getSeconds();
     if(months<0 || (months==0 & days<0))
         years--;
     if(months<0)
@@ -125,7 +125,7 @@ function putData(birthDate){
     data =data + days + " days ";
     data =data + hours + " hours ";
     data =data + minutes + " minutes ";
-    data =data + start  + " start ";
+    data =data + starter  + " start ";
     data =data + "old!"
     loc.innerHTML=data;
     updateRegular(birthDate);

@@ -8,6 +8,24 @@
       "dislikes": 0,
       "id": "249e7cad-9f72-4ed6-ab96-106621414f84",
       "date": "2020-06-14T18:15:38.508Z"
+    },
+    "39e7d59e-65fa-42fc-89cd-294fa72e7d33": {
+      "nume": "sadasdas",
+      "prenume": "asdas",
+      "message": "asdasdas",
+      "likes": "0",
+      "dislikes": "0",
+      "id": "39e7d59e-65fa-42fc-89cd-294fa72e7d33",
+      "date": "2020-06-23T18:40:32.073Z"
+    },
+    "ff22458a-5752-4aa2-a030-7a463a75a7e6": {
+      "nume": "asdas",
+      "prenume": "sadasdsa",
+      "message": "sadasd",
+      "likes": 1,
+      "dislikes": "0",
+      "id": "ff22458a-5752-4aa2-a030-7a463a75a7e6",
+      "date": "2020-06-23T18:40:40.453Z"
     }
   }
 }

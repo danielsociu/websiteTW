@@ -4,6 +4,7 @@ function myMain(){
     window.dispatchEvent(new Event('resize'));
     var body = document.getElementsByTagName("body")[0];
     body.innerHTML += '<p id="timeSpent"></p>';
+    getUserTitle();
     timer();
     myNavigatorFunc();
 }
@@ -72,6 +73,21 @@ function myNavigatorFunc(){
             navMoreContent.style.display="none";
     });
 }
+/// I -- 16 
+function getUserTitle(){
+    var oldTitle = document.title;
+    var newTitle = prompt("Enter title",oldTitle);
+    if(newTitle == null)
+        alert("nothing given");
+    else{
+        document.title = newTitle;
+        setTimeout(function(){
+            document.title = oldTitle;
+        },2000);
+    }
+
+}
+
 /// Adding the footer with the time spend on each page as a total with localStorage
 var myInterval,start;
 function timer(){

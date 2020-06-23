@@ -8,6 +8,6 @@
 * III- 12 in ageScript.js aka age.html but those functions can be added in any page without any much work
 * II -- 1 in ageScript.js aka age.html before II -- 4
 * II -- 3 in homeScript.js aka home.html line 22
-* II -- 4 in in any Script at the end of the file
-* I --- 7 TBA
-* I -- 16 TBA
+* II -- 4 in any Script at the end of the file
+* I --- 7 in any of the thousands timers I have
+* I -- 16 in commentScript.js line 75
