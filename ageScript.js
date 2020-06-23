@@ -243,7 +243,7 @@ function addEvents(){
             if(event.type.lastIndexOf('key')!= -1)
                 myString = '<span style="font-size:1em;display:block;">' + getDate() + ' ' + event.type+',key '+ String.fromCharCode(event.keyCode);
             else
-                myString = '<span style="font-size:1em;display:block;">' + getDate() + ' ' + event.type+',coord '+ event.clientY +':'+event.clientY+'</span>';
+                myString = '<span style="font-size:1em;display:block;">' + getDate() + ' ' + event.type+',coord '+ event.clientX +':'+event.clientY+'</span>';
             if(elements.length < 4)
                 myHolder.innerHTML =myHolder.innerHTML+myString;
             else
