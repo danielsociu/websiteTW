@@ -5,7 +5,7 @@
       "prenume": "Daniel",
       "message": "This is the first comment!",
       "likes": "0",
-      "dislikes": "0",
+      "dislikes": 0,
       "id": "249e7cad-9f72-4ed6-ab96-106621414f84",
       "date": "2020-06-14T18:15:38.508Z"
     }

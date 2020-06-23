@@ -3,6 +3,7 @@ window.onload=myMain;
 function myMain(){
     window.dispatchEvent(new Event('resize'));
     myNavigatorFunc();
+    timer();
 }
 
 
@@ -68,4 +69,64 @@ function myNavigatorFunc(){
         else
             navMoreContent.style.display="none";
     });
+}
+/// Adding the footer with the time spend on each page as a total with localStorage
+var myInterval;
+function timer(){
+    var getIp,answer,start;
+    var body = document.getElementsByTagName("body")[0];
+    body.innerHTML += '<p id="timeSpent"></p>';
+
+    myTimer = document.getElementById("timeSpent");
+
+    var url = "https://ip.nf/me.json";
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("GET", url, true);
+
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send(null);
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            answer = JSON.parse(this.responseText);
+        }
+    }
+    if(answer == null)
+    {
+        alert("Couldnt get Ip, default timer");
+        getIp = "timer";
+    }
+    else
+        getIp = answer.ip.ip;
+
+    getIp =getIp + ":" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+    if(localStorage.getItem(getIp) === null)
+    {
+        start = new Date();
+        localStorage.setItem(getIp,start);
+    }
+    else
+        start = localStorage.getItem(getIp);
+    
+    //updateTimeSpent(getIp,start);
+    start = new Date(start);
+    dataSpentInserter(start,myTimer);
+}
+function dataSpentInserter(start,myTimer)
+{
+    var myDate = new Date();
+    var data='';
+    var sec = myDate - start;
+    sec /= 1000;
+    data = Math.floor(sec/3600)%24;
+    data += ":" + Math.floor(sec/60)%60;
+    data += ":" + Math.floor(sec%60);
+    myTimer.innerHTML = data;
+    updateSpentRegularly(start,myTimer);
+}
+
+function updateSpentRegularly(start,myTimer){
+    myInterval = setTimeout(function(){
+        dataSpentInserter(start,myTimer);
+    },1000);
 }

@@ -21,7 +21,6 @@ window.addEventListener('scroll',function(){
 function myMain(){
     window.dispatchEvent(new Event('resize'));
     myNavigatorFunc();
-    animateTitle("myTitle");
 
     /****************Making scrolling button animation */
     var aTags = document.getElementById("sideMainMenu").children;
@@ -38,6 +37,7 @@ function myMain(){
         //     });
         // })
     }
+    
 }
 /// II -> task ul 3.
 var animatedTitleInterval;
@@ -62,7 +62,10 @@ function buildTitle(titleContainer){
         return -1;
     }
     if((titleContainer.length - indexTitle -1) < indexTitle)
+    {
         clearInterval(animatedTitleInterval);
+        timer();
+    }
     else
     {
         if (indexTitle == (titleContainer.length - indexTitle))
@@ -73,10 +76,13 @@ function buildTitle(titleContainer){
         }
         indexTitle = indexTitle + 1;
     }
+
 }
 function buildTitleInterval(titleContainer) {
     animatedTitleInterval = setInterval(function () { buildTitle(titleContainer); }, 100);
 }
+/// END OF II -> task ul 3.
+// ************************** MENU STUFFS ****************************************
 function myScrollTransistion(elem, elem2) {
     elem.addEventListener("click", function () {
         var newPos = document.getElementById(elem2).offsetTop - document.getElementById("mainNavBar").clientHeight;
@@ -86,8 +92,6 @@ function myScrollTransistion(elem, elem2) {
         });
     })
 }
-/// END OF II -> task ul 3.
-// ************************** MENU STUFFS ****************************************
 window.addEventListener('resize', function () {
     var screenWidth = document.body.clientWidth;
     var myLength = 0, optimal = 0;
@@ -148,4 +152,73 @@ function myNavigatorFunc() {
         else
             navMoreContent.style.display = "none";
     });
+
+    animateTitle("myTitle");
 }
+/// Adding the footer with the time spend on each page as a total with localStorage
+var myInterval,start;
+function timer(){
+    var getIp,answer;
+    var body = document.getElementsByTagName("body")[0];
+    var answer;
+    body.innerHTML += '<p id="timeSpent"></p>';
+
+    myTimer = document.getElementById("timeSpent");
+
+    var url = "https://ip.nf/me.json";
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("GET", url, true);
+
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send(null);
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            answer = JSON.parse(this.responseText);
+            getIp = answer.ip.ip;
+            getIp = getIp + ":" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+            if (localStorage.getItem(getIp) === null) {
+                start = new Date();
+                localStorage.setItem(getIp, start);
+            }
+            else
+                start = localStorage.getItem(getIp);
+
+            //updateTimeSpent(getIp,start);
+            start = new Date(start);
+            setInterval(function () { dataSpentInserter(start, myTimer); }, 1000);
+        } else if (this.status == 404 || this.status == 500||this.status==0) {
+            alert("Couldnt get Ip, default timer");
+            getIp = "timer";
+            getIp = getIp + ":" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+            if (localStorage.getItem(getIp) === null) {
+                start = new Date();
+                localStorage.setItem(getIp, start);
+            }
+            else
+                start = localStorage.getItem(getIp);
+
+            //updateTimeSpent(getIp,start);
+            start = new Date(start);
+            setInterval(function () { dataSpentInserter(start, myTimer); }, 1000);
+        }
+    }
+
+}
+function dataSpentInserter(start, myTimer) {
+    var myDate = new Date();
+    var data = '';
+    var sec = myDate - start;
+    sec /= 1000;
+    data = Math.floor(sec / 3600) % 24;
+    data += ":" + Math.floor(sec / 60) % 60;
+    data += ":" + Math.floor(sec % 60);
+    myTimer.innerHTML = data;
+    //setTimeout(function(){dataSpentInserter(start,myTimer);},1000);
+}
+
+// function updateSpentRegularly(start,myTimer){
+//     myInterval = setTimeout(functionk){
+//         dataSpentInserter(start,myTimer);
+//     },1000);
+// }

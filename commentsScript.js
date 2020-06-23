@@ -1,5 +1,7 @@
 
 window.onload=myMain;
+var server = "http://192.168.0.109:3000";
+//var server = "http://localhost:3000";
 
 function myMain(){
     window.dispatchEvent(new Event('resize'));
@@ -7,9 +9,10 @@ function myMain(){
     getComments();
     document.getElementById("postButton").addEventListener("click",postComment);
     updateComments(JSON.parse(localStorage.getItem("commentsData")));
+    timer();
 }
 function postComment() {
-    var url = "http://localhost:3000/comments";
+    var url = server + "/comments";
     var xhr = new XMLHttpRequest();
     var params = "";
     var dataList = document.getElementById("commentForm").children;
@@ -44,7 +47,7 @@ function postComment() {
 
 
 function getComments(){
-    var url = "http://localhost:3000/comments";
+    var url = server + "/comments";
     var xhr = new XMLHttpRequest();
 
     xhr.open("GET", url, true);
@@ -102,7 +105,7 @@ function updateComments(data) {
 function deleteComment(ev){
     if(!confirm("Are you sure you want to delete this comment?"))
         return null;
-    var url = "http://localhost:3000/comments";
+    var url = server +  "/comments";
     var xhr = new XMLHttpRequest();
     var params = "?who="
 
@@ -125,7 +128,7 @@ function deleteComment(ev){
 
 }
 function editComment(ev){
-    var url = "http://localhost:3000/comments";
+    var url = server + "/comments";
     var xhr = new XMLHttpRequest();
     var params = "who="
 
@@ -179,7 +182,7 @@ function likeComment(ev){
     var likeNumber = document.getElementById("likes"+myId);
     likeNumber.innerHTML = parseInt(likeNumber.innerHTML) + 1;
 
-    var url = "http://localhost:3000/comments/like";
+    var url = server + "/comments/like";
     var xhr = new XMLHttpRequest();
     var params = "?who="
 
@@ -203,7 +206,7 @@ function dislikeComment(ev){
     var likeNumber = document.getElementById("dislikes"+myId);
     likeNumber.innerHTML = parseInt(likeNumber.innerHTML) + 1;
 
-    var url = "http://localhost:3000/comments/dislike";
+    var url = server + "/comments/dislike";
     var xhr = new XMLHttpRequest();
     var params = "?who="
 
@@ -284,4 +287,65 @@ function myNavigatorFunc() {
         else
             navMoreContent.style.display = "none";
     });
+}
+
+/// Adding the footer with the time spend on each page as a total with localStorage
+var myInterval;
+function timer(){
+    var getIp,answer,start;
+    var body = document.getElementsByTagName("body")[0];
+    body.innerHTML += '<p id="timeSpent"></p>';
+
+    myTimer = document.getElementById("timeSpent");
+
+    var url = "https://ip.nf/me.json";
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("GET", url, true);
+
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send(null);
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            answer = JSON.parse(this.responseText);
+        }
+    }
+    if(answer == null)
+    {
+        alert("Couldnt get Ip, default timer");
+        getIp = "timer";
+    }
+    else
+        getIp = answer.ip.ip;
+
+    getIp =getIp + ":" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+    if(localStorage.getItem(getIp) === null)
+    {
+        start = new Date();
+        localStorage.setItem(getIp,start);
+    }
+    else
+        start = localStorage.getItem(getIp);
+    
+    //updateTimeSpent(getIp,start);
+    start = new Date(start);
+    dataSpentInserter(start,myTimer);
+}
+function dataSpentInserter(start,myTimer)
+{
+    var myDate = new Date();
+    var data='';
+    var sec = myDate - start;
+    sec /= 1000;
+    data = Math.floor(sec/3600)%24;
+    data += ":" + Math.floor(sec/60)%60;
+    data += ":" + Math.floor(sec%60);
+    myTimer.innerHTML = data;
+    updateSpentRegularly(start,myTimer);
+}
+
+function updateSpentRegularly(start,myTimer){
+    myInterval = setTimeout(function(){
+        dataSpentInserter(start,myTimer);
+    },1000);
 }
