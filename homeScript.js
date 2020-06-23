@@ -20,6 +20,10 @@ window.addEventListener('scroll',function(){
 
 function myMain(){
     window.dispatchEvent(new Event('resize'));
+
+    var body = document.getElementsByTagName("body")[0];
+    body.innerHTML += '<p id="timeSpent"></p>';
+    timer();
     myNavigatorFunc();
 
     /****************Making scrolling button animation */
@@ -61,10 +65,9 @@ function buildTitle(titleContainer){
         buildTitleInterval(titleContainer);
         return -1;
     }
-    if((titleContainer.length - indexTitle -1) < indexTitle)
+    if((titleContainer.length - indexTitle ) < indexTitle)
     {
         clearInterval(animatedTitleInterval);
-        timer();
     }
     else
     {
@@ -159,9 +162,7 @@ function myNavigatorFunc() {
 var myInterval,start;
 function timer(){
     var getIp,answer;
-    var body = document.getElementsByTagName("body")[0];
     var answer;
-    body.innerHTML += '<p id="timeSpent"></p>';
 
     myTimer = document.getElementById("timeSpent");
 

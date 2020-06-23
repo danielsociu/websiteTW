@@ -2,9 +2,47 @@ window.onload=myMain;
 var mytime;
 function myMain(){
     window.dispatchEvent(new Event('resize'));
+    var body = document.getElementsByTagName("body")[0];
+    body.innerHTML += '<p id="timeSpent"></p>';
+    body.innerHTML += '<button id="logButton" type="button" style="position:fixed;bottom:10px;left:20px;">Log</button>';
+    body.innerHTML += '<div id="logHolder" style="display:none;position:fixed;bottom:30px;left:20px;font-size:1em"></div>';
+    ///Tried something different didn't really work out
+    // var listenerCount={},eventCount = {};
+    // var myHolder = document.getElementById("logHolder");
+    //////////////////////////////////////////
+    // EventTarget.prototype.addEventListener = 
+    // function(eventName,eventHandler){
+    //     alert(event);
+    //     eventHandler(event);
+    // }
+    ///Cerinta III -> 12
+    addLogger();
+    addEvents();
+
+    // var oldAddEventListener = EventTarget.prototype.addEventListener;
+    // EventTarget.prototype.addEventListener = function (eventName, eventHandler) {
+    //     listenerCount[eventName] = (listenerCount[eventName] || 0) + 1;
+    //     //renderTable();
+
+    //     oldAddEventListener.call(this, eventName, function (event) {
+    //         eventCount[eventName] = (eventCount[eventName] || 0) + 1;
+    //         var elements = document.getElementById("logHolder").children;
+    //         var myString = '<span style="font-size:1em;display:block;">' + getDate() + ' ' + eventName+',coord '+ event.clientY +':'+event.clientY+'</span>';
+    //         if(elements.length < 4)
+    //             myHolder.innerHTML =myHolder.innerHTML+myString;
+    //         else
+    //         {
+    //             for(var i=3;i>0;i--)
+    //                 myString = '<span style="font-size:1em;display:block;">' + elements[i].innerHTML + '</span>' + myString;
+    //             myHolder.innerHTML = myString;
+    //         }
+    //         eventHandler(event);
+    //     });
+    // };
+    //////////////////////////////////////////
+    timer();
     myNavigatorFunc();
     document.getElementById("sendButton").addEventListener("click",updateAge);
-    timer();
 }
 /// II -> task ul 1
 function daysInMonth (month, year) { 
@@ -160,12 +198,70 @@ function myNavigatorFunc(){
             navMoreContent.style.display="none";
     });
 }
+
+//// Adding the log keeper(function can be put on any page)
+function getDate(){
+    var date = new Date();
+    var yyyy = date.getFullYear();
+    var mm = date.getMonth()+1;
+    var dd = date.getDay();
+    var hh = date.getHours();
+    var min = date.getMinutes();
+    var sec = date.getSeconds();
+    if(mm<10)
+        mm = '0' + mm;
+    if(dd<10)
+        dd = '0' + dd;
+    if(hh<10)
+        hh = '0' + hh;
+    if(min<10)
+        min = '0' + min;
+    if(sec<10)
+        sec = '0' + sec;
+    return yyyy+'/'+mm+'/'+dd+' '+hh+':'+min+':'+sec;
+}
+function addLogger(){
+    var myLogger = document.getElementById("logButton");
+    myLogger.addEventListener("click",function(){
+        var myHolder = document.getElementById("logHolder");
+        var showStatus = getComputedStyle(myHolder).display;
+        if(showStatus =="none")
+            myHolder.style.display="block";
+        else   
+            myHolder.style.display="none";
+    });
+}
+function addEvents(){
+    var body = document.getElementsByTagName('body')[0];
+    //var Events = ['mousedown', 'mouseup', 'click', 'dblclick', 'mousemove', 'mouseover', 'mousewheel', 'mouseout', 'contextmenu','keydown', 'keypress', 'keyup'];
+    var Events = [ 'click', 'dblclick',   'contextmenu', 'keypress' ];
+    for(var i=0;i<Events.length;i++){
+        body.addEventListener(Events[i],function(event){
+            var elements = document.getElementById("logHolder").children;
+            var myHolder = document.getElementById("logHolder");
+            var myString;
+            if(event.type.lastIndexOf('key')!= -1)
+                myString = '<span style="font-size:1em;display:block;">' + getDate() + ' ' + event.type+',key '+ String.fromCharCode(event.keyCode);
+            else
+                myString = '<span style="font-size:1em;display:block;">' + getDate() + ' ' + event.type+',coord '+ event.clientY +':'+event.clientY+'</span>';
+            if(elements.length < 4)
+                myHolder.innerHTML =myHolder.innerHTML+myString;
+            else
+            {
+                for(var i=3;i>0;i--)
+                    myString = '<span style="font-size:1em;display:block;">' + elements[i].innerHTML + '</span>' + myString;
+                myHolder.innerHTML = myString;
+            }
+
+        });
+    }
+}
+
 /// Adding the footer with the time spend on each page as a total with localStorage
-var myInterval;
+var myInterval,start;
 function timer(){
-    var getIp,answer,start;
-    var body = document.getElementsByTagName("body")[0];
-    body.innerHTML += '<p id="timeSpent"></p>';
+    var getIp,answer;
+    var answer;
 
     myTimer = document.getElementById("timeSpent");
 
@@ -179,44 +275,51 @@ function timer(){
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             answer = JSON.parse(this.responseText);
+            getIp = answer.ip.ip;
+            getIp = getIp + ":" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+            if (localStorage.getItem(getIp) === null) {
+                start = new Date();
+                localStorage.setItem(getIp, start);
+            }
+            else
+                start = localStorage.getItem(getIp);
+
+            //updateTimeSpent(getIp,start);
+            start = new Date(start);
+            setInterval(function () { dataSpentInserter(start, myTimer); }, 1000);
+        } else if (this.status == 404 || this.status == 500||this.status==0) {
+            alert("Couldnt get Ip, default timer");
+            getIp = "timer";
+            getIp = getIp + ":" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+            if (localStorage.getItem(getIp) === null) {
+                start = new Date();
+                localStorage.setItem(getIp, start);
+            }
+            else
+                start = localStorage.getItem(getIp);
+
+            //updateTimeSpent(getIp,start);
+            start = new Date(start);
+            setInterval(function () { dataSpentInserter(start, myTimer); }, 1000);
         }
     }
-    if(answer == null)
-    {
-        alert("Couldnt get Ip, default timer");
-        getIp = "timer";
-    }
-    else
-        getIp = answer.ip.ip;
 
-    getIp =getIp + ":" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
-    if(localStorage.getItem(getIp) === null)
-    {
-        start = new Date();
-        localStorage.setItem(getIp,start);
-    }
-    else
-        start = localStorage.getItem(getIp);
-    
-    //updateTimeSpent(getIp,start);
-    start = new Date(start);
-    dataSpentInserter(start,myTimer);
 }
-function dataSpentInserter(start,myTimer)
-{
+function dataSpentInserter(start, myTimer) {
     var myDate = new Date();
-    var data='';
+    var data = '';
     var sec = myDate - start;
     sec /= 1000;
-    data = Math.floor(sec/3600)%24;
-    data += ":" + Math.floor(sec/60)%60;
-    data += ":" + Math.floor(sec%60);
+    data = Math.floor(sec / 3600) % 24;
+    data += ":" + Math.floor(sec / 60) % 60;
+    data += ":" + Math.floor(sec % 60);
     myTimer.innerHTML = data;
-    updateSpentRegularly(start,myTimer);
+    //setTimeout(function(){dataSpentInserter(start,myTimer);},1000);
 }
 
-function updateSpentRegularly(start,myTimer){
-    myInterval = setTimeout(function(){
-        dataSpentInserter(start,myTimer);
-    },1000);
-}
+// function updateSpentRegularly(start,myTimer){
+//     myInterval = setTimeout(functionk){
+//         dataSpentInserter(start,myTimer);
+//     },1000);
+// }
+

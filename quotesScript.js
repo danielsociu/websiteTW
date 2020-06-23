@@ -2,9 +2,11 @@ window.onload=myMain;
 
 function myMain(){
     window.dispatchEvent(new Event('resize'));
+    var body = document.getElementsByTagName("body")[0];
+    body.innerHTML += '<p id="timeSpent"></p>';
+    timer();
     myNavigatorFunc();
     document.getElementById("quote").onclick=getQuote;
-    timer();
 }
 function getRandomColor(){
     var letters='0123456789ABCDE';
@@ -115,11 +117,10 @@ function myNavigatorFunc(){
     });
 }
 /// Adding the footer with the time spend on each page as a total with localStorage
-var myInterval;
+var myInterval,start;
 function timer(){
-    var getIp,answer,start;
-    var body = document.getElementsByTagName("body")[0];
-    body.innerHTML += '<p id="timeSpent"></p>';
+    var getIp,answer;
+    var answer;
 
     myTimer = document.getElementById("timeSpent");
 
@@ -133,44 +134,50 @@ function timer(){
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             answer = JSON.parse(this.responseText);
+            getIp = answer.ip.ip;
+            getIp = getIp + ":" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+            if (localStorage.getItem(getIp) === null) {
+                start = new Date();
+                localStorage.setItem(getIp, start);
+            }
+            else
+                start = localStorage.getItem(getIp);
+
+            //updateTimeSpent(getIp,start);
+            start = new Date(start);
+            setInterval(function () { dataSpentInserter(start, myTimer); }, 1000);
+        } else if (this.status == 404 || this.status == 500||this.status==0) {
+            alert("Couldnt get Ip, default timer");
+            getIp = "timer";
+            getIp = getIp + ":" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+            if (localStorage.getItem(getIp) === null) {
+                start = new Date();
+                localStorage.setItem(getIp, start);
+            }
+            else
+                start = localStorage.getItem(getIp);
+
+            //updateTimeSpent(getIp,start);
+            start = new Date(start);
+            setInterval(function () { dataSpentInserter(start, myTimer); }, 1000);
         }
     }
-    if(answer == null)
-    {
-        alert("Couldnt get Ip, default timer");
-        getIp = "timer";
-    }
-    else
-        getIp = answer.ip.ip;
 
-    getIp =getIp + ":" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
-    if(localStorage.getItem(getIp) === null)
-    {
-        start = new Date();
-        localStorage.setItem(getIp,start);
-    }
-    else
-        start = localStorage.getItem(getIp);
-    
-    //updateTimeSpent(getIp,start);
-    start = new Date(start);
-    dataSpentInserter(start,myTimer);
 }
-function dataSpentInserter(start,myTimer)
-{
+function dataSpentInserter(start, myTimer) {
     var myDate = new Date();
-    var data='';
+    var data = '';
     var sec = myDate - start;
     sec /= 1000;
-    data = Math.floor(sec/3600)%24;
-    data += ":" + Math.floor(sec/60)%60;
-    data += ":" + Math.floor(sec%60);
+    data = Math.floor(sec / 3600) % 24;
+    data += ":" + Math.floor(sec / 60) % 60;
+    data += ":" + Math.floor(sec % 60);
     myTimer.innerHTML = data;
-    updateSpentRegularly(start,myTimer);
+    //setTimeout(function(){dataSpentInserter(start,myTimer);},1000);
 }
 
-function updateSpentRegularly(start,myTimer){
-    myInterval = setTimeout(function(){
-        dataSpentInserter(start,myTimer);
-    },1000);
-}
+// function updateSpentRegularly(start,myTimer){
+//     myInterval = setTimeout(functionk){
+//         dataSpentInserter(start,myTimer);
+//     },1000);
+// }
