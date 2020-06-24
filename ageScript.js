@@ -125,7 +125,7 @@ function putData(birthDate){
     data =data + days + " days ";
     data =data + hours + " hours ";
     data =data + minutes + " minutes ";
-    data =data + starter  + " start ";
+    data =data + starter  + " seconds ";
     data =data + "old!"
     loc.innerHTML=data;
     updateRegular(birthDate);
@@ -201,13 +201,13 @@ function myNavigatorFunc(){
 
 //// Adding the log keeper(function can be put on any page)
 function getDate(){
-    var date = new Date();
-    var yyyy = date.getFullYear();
-    var mm = date.getMonth()+1;
-    var dd = date.getDay();
-    var hh = date.getHours();
-    var min = date.getMinutes();
-    var sec = date.getSeconds();
+    var myNewDate = new Date();
+    var yyyy = myNewDate.getFullYear();
+    var mm = myNewDate.getMonth()+1;
+    var dd = myNewDate.getDate();
+    var hh = myNewDate.getHours();
+    var min = myNewDate.getMinutes();
+    var sec = myNewDate.getSeconds();
     if(mm<10)
         mm = '0' + mm;
     if(dd<10)
@@ -305,15 +305,15 @@ function timer(){
     }
 
 }
-function dataSpentInserter(start, myTimer) {
+function dataSpentInserter(myStartingDate, myTimer) {
     var myDate = new Date();
-    var data = '';
-    var sec = myDate - start;
+    var mySpentData = '';
+    var sec = myDate - myStartingDate;
     sec /= 1000;
-    data = Math.floor(sec / 3600) % 24;
-    data += ":" + Math.floor(sec / 60) % 60;
-    data += ":" + Math.floor(sec % 60);
-    myTimer.innerHTML = data;
+    mySpentData = Math.floor(sec / 3600) % 24;
+    mySpentData += ":" + Math.floor(sec / 60) % 60;
+    mySpentData += ":" + Math.floor(sec % 60);
+    myTimer.innerHTML = mySpentData;
     //setTimeout(function(){dataSpentInserter(start,myTimer);},1000);
 }
 
